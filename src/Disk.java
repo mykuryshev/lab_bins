@@ -1,5 +1,10 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Represents a collection of files; how many it can hold is limited by its capacity.
@@ -57,6 +62,7 @@ public class Disk implements Comparable<Disk> {
         for (int k = 0; k < myFiles.size(); k++) {
             result += " " + myFiles.get(k);
         }
+        fitDiskAndPrint(myFiles, (input) -> input.stream().sorted().collect(Collectors.toList()));
         return result;
     }
 
@@ -102,5 +108,12 @@ public class Disk implements Comparable<Disk> {
         } else {
             return -1;
         }
+    }
+    
+    public static void fitDiskAndPrint(List<Integer> list, Function<List<Integer>, List<Integer>> func){
+    	//list.stream().sorted().collect(Collectors.toList());
+    	
+    	List<Integer> transformed = func.apply(list);
+    	transformed.forEach(System.out::println);
     }
 }
